@@ -21,7 +21,7 @@ The other private variables we need to keep track of are:
 - cur_table_size: current hashtable size (initialized with 100, we are potentially resizing it) 
 - loaded-pair: current key-value pairs loaded. If exceeded max_load_factor*cur_table_size, call the resize_hashtable method. 
 
-There's also a private method called resize_hashtable, it takes in a multiplier and resize cur_table_size to that multiple. It works by creating a new vector, reinserting one-by-one the key-value pairs, and then delete the old table by going into each entry (the same mechanism as reset().)
+There's also a private method called resize_hashtable, it takes in a multiplier and resize cur_table_size to that multiple. It works by creating a new vector, reinserting one-by-one the key-value pairs, and then delete the old table by going into each entry (the same mechanism as reset())
 
 
 The interface of Impl has the following functions (the documentation is provided by Eitan, so we won't paste them here): 
