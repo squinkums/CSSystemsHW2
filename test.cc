@@ -1,5 +1,6 @@
 #include <iostream>
-#include "cache_lib.cc"
+#include "cache.hh"
+#include "fifo_evictor.h"
 #include <cassert>
 #include <chrono>
 #include <thread>
@@ -167,7 +168,7 @@ void reset_test()
 	my_value1[1] = 'b';
 	my_value1[2] = 'c';
 	uint32_t my_size = 3;
-	my_cache->set(my_key1, my_value1, 3);
+	my_cache->set(my_key1, my_value1, my_size);
 	my_cache->reset();
 	assert(my_cache->space_used() == 0);
 	delete my_cache;

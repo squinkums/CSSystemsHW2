@@ -4,7 +4,7 @@
 #include "null_evictor.h"
 #include <iostream>
 #include <algorithm>
-#include "fifo_evictor.cc"
+#include "fifo_evictor.h"
 
 //------------------------------------------------------------------This is the Impl Class Implementation------------------------------------------
 
@@ -39,7 +39,7 @@ public:
         }
         this->max_load_factor_ = max_load_factor;
     	//initialize the hashtable with all null pointers
-    	for(int i = 0;i<cur_table_size_;i++)
+    	for(unsigned int i = 0;i<cur_table_size_;i++)
     	{
             hashtable.push_back(nullptr);
     	}
@@ -104,7 +104,7 @@ public:
                 }
                 else {
                     //If the evictor returns a key, we delete it and subtract from cur_mem and cur_pair
-                    const auto val_size = del(evicted);
+                    del(evicted);
                     std::cout << evicted << " evicted!" << '\n';
                     hashtable[table_entry] = new Link_list(key, val, size);
                     if (reinsert == false) {
@@ -152,7 +152,7 @@ public:
                         }
                         else {
                             //If the evictor returns a key, we delete it and subtract from cur_mem and cur_pair
-                            const auto val_size = del(evicted);
+                            del(evicted);
                             std::cout << evicted << " evicted!" << '\n';
                             cur->next = new Link_list(key, val, size);
                             if (reinsert == false) {
@@ -188,7 +188,7 @@ public:
 
             delete[] cur->val;
             cur->val = new byte_type[size];
-            for (auto i = 0; i < size; i++)
+            for (unsigned int i = 0; i < size; i++)
             {
                 cur->val[i] = 0;
             }
@@ -234,7 +234,7 @@ public:
     	// If we ever jump out of the loop we have found the key
         evictor_->touch_key(key);
         auto const return_val = new byte_type[val_size];
-        for (auto i = 0; i < val_size; i++)
+        for (unsigned int i = 0; i < val_size; i++)
         {
             return_val[i] = 0;
         }
@@ -335,7 +335,7 @@ public:
             // Note: Setting i = nullptr would not reset the table entries.
 	    }
 
-    	for(auto i = 0;i<hashtable.size();i++)
+    	for(unsigned int i = 0;i<hashtable.size();i++)
     	{
             hashtable[i] = nullptr;
     	}
@@ -366,7 +366,7 @@ private:
             this->key = new key_type(key);
 			//To deep copy the value, initialize the val parameter with the same size as the input value
             this->val = new byte_type[size];
-			for (auto i = 0;i<size;i++)
+			for (unsigned int i = 0;i<size;i++)
 			{
                 this->val[i] = 0;
 			}
